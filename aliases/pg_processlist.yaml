@@ -1,0 +1,16 @@
+---
+name: chatops.pg_processlist
+action_ref: st2-pack-template.pg_processlist
+description: Show PostGres processlist
+formats:
+  - display: "show postgres processlist <hosts=db>"
+    representation:
+      - "show postgres processlist {{ hosts=db }}"
+      - "show postgres processlist on {{ hosts=db }}"
+result:
+  format: |
+    {% if execution.status == 'succeeded' %}Postgres queries on `{{ execution.parameters.hosts }}`: ```{{ execution.result.stdout }}```{~}{% else %}
+    *Exit Code:* `{{ execution.result.return_code }}`
+    *Stderr:* ```{{ execution.result.stderr }}```
+    *Stdout:* ```{{ execution.result.stdout }}```
+    {% endif %}
