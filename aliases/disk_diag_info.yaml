@@ -1,0 +1,16 @@
+---
+name: chatops.disk_diag_info
+action_ref: st2-pack-template.disk_diag_info
+description: Show Disk Diagnostic Information
+formats:
+  - display: "show diskdiag <hosts=localhost>"
+    representation:
+      - "show diskdiag {{ hosts=localhost }}"
+      - "show diskdiag on {{ hosts=localhost }}"
+result:
+  format: |
+    {% if execution.status == 'succeeded' %}Disk Diagnostic Information on `{{ execution.parameters.hosts }}`: ```{{ execution.result.stdout }}```{~}{% else %}
+    *Exit Code:* `{{ execution.result.return_code }}`
+    *Stderr:* ```{{ execution.result.stderr }}```
+    *Stdout:* ```{{ execution.result.stdout }}```
+    {% endif %}
