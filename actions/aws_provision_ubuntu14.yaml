@@ -1,5 +1,5 @@
 ---
-name: provision_vm_aws
+name: aws_provision_ubuntu14
 description: Provision Ubuntu VM on AWS
 runner_type: local-shell-cmd
 entry_point: ""
