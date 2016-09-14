@@ -20,7 +20,7 @@ result:
     slack:
       color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
       fields:
-        - title: Created VM
+        - title: Stopped VM
           value: "{{ execution.result.stdout|regex_replace('(?!changed=1).', '')|wordcount }}"
           short: true
       footer: "{{ execution.id }}"
