@@ -1,0 +1,27 @@
+---
+name: chatops.aws_provision_ubuntu14
+action_ref: st2-pack-template.aws_provision_ubuntu14
+description: Create Ubuntu14.04 VM on AWS
+formats:
+  - display: "Create vm <hosts> on AWS"
+    representation:
+      - "create vm {{ hosts }}"
+      - "create vm {{ hosts }} on aws"
+result:
+  format: |
+    Create VM `{{ execution.parameters.package }}` on `{{ execution.parameters.hosts }}` host(s): {~}
+    {% if execution.result.stderr %}
+    *Exit Status*: `{{ execution.result.return_code }}`
+    *Stderr:* ```{{ execution.result.stderr }}```
+    *Stdout:*
+    {% endif %}
+    ```{{ execution.result.stdout }}```
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Created VM
+          value: "{{ execution.result.stdout|regex_replace('(?!changed=1).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"
