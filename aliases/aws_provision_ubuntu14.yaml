@@ -3,10 +3,10 @@ name: chatops.aws_provision_ubuntu14
 action_ref: st2-pack-template.aws_provision_ubuntu14
 description: Create Ubuntu14.04 VM on AWS
 formats:
-  - display: "create vm <hosts> on AWS"
+  - display: "create aws vm <hosts>"
     representation:
       - "create vm {{ hosts }}"
-      - "create vm {{ hosts }} on aws"
+      - "create aws vm {{ hosts }}"
 result:
   format: |
     Create VM `{{ execution.parameters.package }}` on `{{ execution.parameters.hosts }}` host(s): {~}
