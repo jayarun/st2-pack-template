@@ -3,9 +3,9 @@ name: chatops.azure_provision_ubuntu14
 action_ref: st2-pack-template.azure_provision_ubuntu14
 description: Create Ubuntu14.04 VM on Azure
 formats:
-  - display: "create vm <hosts> on Azure"
+  - display: "create azure vm <hosts> "
     representation:
-      - "create vm {{ hosts }} on azure"
+      - "create azure vm {{ hosts }}"
 result:
   format: |
     Create VM `{{ execution.parameters.package }}` on `{{ execution.parameters.hosts }}` host(s): {~}
