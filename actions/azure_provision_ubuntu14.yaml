@@ -15,7 +15,7 @@ parameters:
   cmd:
     description: "Command to run"
     immutable: true
-    default: "/usr/bin/ansible-playbook /etc/ansible/azure_provision_ubuntu14.yml --extra-vars='hosts={{hosts}}'"
+    default: "/usr/bin/ansible-playbook /etc/ansible/azure_provision_ubuntu14.yml --extra-vars='hostname={{hosts}}'"
   hosts:
     description: "Ansible hosts"
     type: string
