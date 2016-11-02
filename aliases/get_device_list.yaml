@@ -3,10 +3,10 @@ name: chatops.get_device_list
 action_ref: st2-pack-template.get_device_list
 description: Get the list of devices
 formats:
-  - display: "get the list of devices"
+  - display: "get list of devices"
     representation:
-      - "show list of devices"
-      - "show devicelist"
+      - "get list of devices"
+      - "get devicelist"
 result:
   format: |
     {% if execution.status == 'succeeded' %} Fetched Device List : ```{{ execution.result.stdout }}```{~}{% else %}
