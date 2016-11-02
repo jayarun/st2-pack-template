@@ -15,5 +15,5 @@ parameters:
   cmd:
     description: "Command to run"
     immutable: true
-    default: "/usr/bin/ansible-playbook /etc/ansible/GetDeviceList.yml"
+    default: "/usr/bin/ansible-playbook /etc/ansible/GetDeviceList.yml | grep epnid"
 
