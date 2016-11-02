@@ -15,7 +15,7 @@ parameters:
   cmd:
     description: "Command to run"
     immutable: true
-    default: "/usr/bin/ansible-playbook /etc/ansible/GetObservation.yml -e "deviceName={{deviceName}} featureName={{featureName}} "
+    default: "/usr/bin/ansible-playbook /etc/ansible/GetObservation.yml --extra-vars "deviceName={{deviceName}} featureName={{featureName}}"
   deviceName:
     description: "Device Name"
     type: string
