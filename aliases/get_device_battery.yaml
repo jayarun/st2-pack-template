@@ -1,0 +1,25 @@
+---
+name: chatops.get_device_battery
+action_ref: st2-pack-template.get_device_battery
+description: Get the battery details of specific device
+formats:
+  - display: "get device battery level <deviceName>"
+    representation:
+      - "get device battery level {{ deviceName }}"
+      - "get device battery level on {{ deviceName }}"
+result:
+  format: |
+    {% if execution.status == 'succeeded' %} Fetched Device Battery Level : ```{{ execution.result.stdout }}```{~}{% else %}
+    *Exit Code:* `{{ execution.result.return_code }}`
+    *Stderr:* ```{{ execution.result.stderr }}```
+    *Stdout:* ```{{ execution.result.stdout }}```
+    {% endif %}
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Device list displayed
+          value: "{{ execution.result.stdout|regex_replace('(?!changed=1).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"
