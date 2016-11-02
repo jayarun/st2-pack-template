@@ -1,5 +1,5 @@
 ---
-name: get_device_batteru
+name: get_device_battery
 description: Get the battery details of specific device
 runner_type: local-shell-cmd
 entry_point: ""
