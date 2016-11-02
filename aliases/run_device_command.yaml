@@ -1,0 +1,25 @@
+---
+name: chatops.run_device_command
+action_ref: st2-pack-template.run_device_command
+description: Run a command on specific device
+formats:
+  - display: "run command <cmdName> on <deviceName>"
+    representation:
+      - "run command {{cmdName}} on {{ deviceName }}"
+
+result:
+  format: |
+    {% if execution.status == 'succeeded' %} Ran Command on Device : ```{{ execution.result.stdout }}```{~}{% else %}
+    *Exit Code:* `{{ execution.result.return_code }}`
+    *Stderr:* ```{{ execution.result.stderr }}```
+    *Stdout:* ```{{ execution.result.stdout }}```
+    {% endif %}
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Device list displayed
+          value: "{{ execution.result.stdout|regex_replace('(?!changed=1).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"
