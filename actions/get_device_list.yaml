@@ -16,7 +16,4 @@ parameters:
     description: "Command to run"
     immutable: true
     default: "/usr/bin/ansible-playbook /etc/ansible/GetDeviceList.yml"
-  hosts:
-    description: "Ansible hosts"
-    type: string
-    required: true
+
