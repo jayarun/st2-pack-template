@@ -1,0 +1,27 @@
+---
+name: chatops.get_device_list
+action_ref: st2-pack-template.get_device_list
+description: Get the list of devices
+formats:
+  - display: "get the list of devices"
+    representation:
+      - "show list of devices"
+      - "show devicelist"
+result:
+  format: |
+    Get Devicelist `{{ execution.parameters.package }}` : {~}
+    {% if execution.result.stderr %}
+    *Exit Status*: `{{ execution.result.return_code }}`
+    *Stderr:* ```{{ execution.result.stderr }}```
+    *Stdout:*
+    {% endif %}
+    ```{{ execution.result.stdout }}```
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Device list displayed
+          value: "{{ execution.result.stdout|regex_replace('(?!changed=1).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"
