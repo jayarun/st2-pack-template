@@ -1,0 +1,27 @@
+---
+name: chatops.get_device_details
+action_ref: st2-pack-template.get_device_details
+description: Get the details of specific device
+formats:
+  - display: "get device details <deviceName>"
+    representation:
+      - "get device details {{ deviceName }}"
+      - "get device details on {{ deviceName }}"
+result:
+  format: |
+    Device Details `{{ execution.parameters.package }}` on `{{ execution.parameters.deviceName }}` host(s): {~}
+    {% if execution.result.stderr %}
+    *Exit Status*: `{{ execution.result.return_code }}`
+    *Stderr:* ```{{ execution.result.stderr }}```
+    *Stdout:*
+    {% endif %}
+    ```{{ execution.result.stdout }}```
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Fetched Device Details
+          value: "{{ execution.result.stdout|regex_replace('(?!changed=1).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"
