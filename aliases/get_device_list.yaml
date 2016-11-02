@@ -9,7 +9,7 @@ formats:
       - "show devicelist"
 result:
   format: |
-    {% if execution.status == 'succeeded' %}Disk Diagnostic Information on `{{ execution.parameters.hosts }}`: ```{{ execution.result.stdout }}```{~}{% else %}
+    {% if execution.status == 'succeeded' %} Fetched Device List : ```{{ execution.result.stdout }}```{~}{% else %}
     *Exit Code:* `{{ execution.result.return_code }}`
     *Stderr:* ```{{ execution.result.stderr }}```
     *Stdout:* ```{{ execution.result.stdout }}```
