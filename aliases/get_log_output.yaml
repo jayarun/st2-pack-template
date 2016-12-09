@@ -1,0 +1,25 @@
+---
+name: chatops.get_log_output
+action_ref: st2-pack-template.get_log_output
+description: Get the logs of specific instance for a query
+formats:
+  - display: "get logs <query> on <hosts>"
+    representation:
+      - "get logs {{query}} on {{ hosts }}"
+
+result:
+  format: |
+    {% if execution.status == 'succeeded' %} Fetched Logs Successfully : ```{{ execution.result.stdout }}```{~}{% else %}
+    *Exit Code:* `{{ execution.result.return_code }}`
+    *Stderr:* ```{{ execution.result.stderr }}```
+    *Stdout:* ```{{ execution.result.stdout }}```
+    {% endif %}
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Logs displayed
+          value: "{{ execution.result.stdout|regex_replace('(?!changed=1).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"
