@@ -1,0 +1,16 @@
+---
+name: chatops.get_flush_config
+action_ref: st2-pack-template.get_flush_config
+description: Get Flush Config Information
+formats:
+  - display: "get flush config"
+    representation:
+      - "get kafka flush config"
+      - "get flush config"
+result:
+  format: |
+    {% if execution.status == 'succeeded' %}: ```{{ execution.result.stdout }}```{~}{% else %}
+    *Exit Code:* `{{ execution.result.return_code }}`
+    *Stderr:* ```{{ execution.result.stderr }}```
+    *Stdout:* ```{{ execution.result.stdout }}```
+    {% endif %}
