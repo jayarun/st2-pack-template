@@ -9,7 +9,7 @@ formats:
       - "get flush config"
 result:
   format: |
-    {% if execution.status == 'succeeded' %}: ```{{ execution.result.stdout }}```{~}{% else %}
+    {% if execution.status == 'succeeded' %}Kafka Config Information fetched successfully: ```{{ execution.result.stdout }}```{~}{% else %}
     *Exit Code:* `{{ execution.result.return_code }}`
     *Stderr:* ```{{ execution.result.stderr }}```
     *Stdout:* ```{{ execution.result.stdout }}```
